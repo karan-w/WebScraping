@@ -68,27 +68,29 @@ class Processor:
             html = f.read()
         soup = bs(html, features="lxml")               
         articles = soup.find_all('article')
-        article = articles[0]
-        article = article.find(attrs={"data-testid":"tweet"})
-        tweet = article.contents[3]
-        # author = tweet.find
+        print(f'{len(articles)}')
+        for article in articles:
+            article = article.find(attrs={"data-testid":"tweet"})
+            tweet = article.contents[len(article) - 1]
+            date = tweet.find('a', 'css-4rbku5 css-18t94o4 css-901oao r-1re7ezh r-1loqt21 r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-3s2u2q r-qvutc0')
+            date = date.text
+            authors = tweet.find_all('span', 'css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0')
+            handle = authors[2]
+            handle = handle.text
+            name = authors[1]
+            name = name.text
+            replies = authors[-3]
+            replies = replies.text
+            retweets = authors[-2]
+            retweets = retweets.text
+            favourites = authors[-1]
+            favourites = favourites.text
+            text = tweet.find('div', 'css-901oao r-hkyrab r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-bnwqim r-qvutc0')
+            text = text.text
+            text = text.strip('\n')
+            text = text.strip('\t')
+            print(date, handle, name, text, replies, retweets, favourites)
 
-        # for content in article.contents:
-        #     print("CONTENT---------------------------")
-            # print(content)
-        
-        # spans = article.find_all('span', 'css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0')
-        # print(spans.text)
-        # links = article.find_all('a')
-        # print(links)
-        # for link in links:
-        #     print(link)
-        # print(article.children[0])
-        # print(article)
-        # for child in article.children:
-        #     print(child)
-        # for article in articles:   
-        #     print(article.get_text())
         processor_print(f'Finished processing {filename}')
     # def process_all_CSV(self):
         

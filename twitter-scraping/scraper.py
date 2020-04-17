@@ -118,10 +118,10 @@ class Scraper:
 
                                 with open(filename, 'w') as f:
                                     tweets = list(dict.fromkeys(tweets))
+                                    print(f'Number of tweets - {len(tweets)}')
                                     for tweet in tweets:
-                                        soup = bs(tweet, features="lxml")               
-                                        prettyHTML = soup.prettify()
-                                        f.write(prettyHTML)
+                                        f.write(tweet)
+                
                                         
                                 break
                             last_height = new_height
