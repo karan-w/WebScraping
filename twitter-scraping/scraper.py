@@ -61,7 +61,7 @@ class Scraper:
             scraper_print(f'{len(dates)} dates found. Starting on {dates[0]} and ending on {dates[-1]}.')
 
         for index, company in companies.iterrows(): 
-            print (company["name"], company["keyword"]) 
+            scraper_print(f'Starting scraping for {company["name"]} with keyword as "{company["keyword"]}"')
             next_date = current_date = None
             l = len(dates)
             directory = company["name"]
@@ -72,7 +72,8 @@ class Scraper:
                     if index != l-1: #skip the last date because there's no next
                         next_date = dates[index + 1]
                         current_date = dates[index]
-
+                        filename = f'{directory}/{current_date}.html'
+                        
                         query = company.keyword + " since:" + \
                             str(current_date)[0:4] + "-" + str(current_date)[4:6] + "-" + str(current_date)[6:] \
                             + " until:" + str(next_date)[0:4] + "-" + str(next_date)[4:6] + "-" + str(next_date)[6:]
@@ -86,13 +87,14 @@ class Scraper:
 
                         # Initialize the Chrome webdriver and open the URL
                         driver = webdriver.Chrome(options=options)
+
+                        scraper_print(f'Started scraping {filename}')
                         driver.get(search_url)
 
                         SCROLL_PAUSE_TIME = 5
 
                         # Get scroll height
                         last_height = driver.execute_script("return document.body.scrollHeight")
-                        count = 0
                         tweets = []
                         while True:
                             # Scroll down to bottom
@@ -103,8 +105,6 @@ class Scraper:
 
                             # Calculate new scroll height and compare with last scroll height
                             new_height = driver.execute_script("return document.body.scrollHeight")
-                            filename = f'{directory}/{current_date}_{count}.html'
-                            count += 1
                             # print(driver.page_source) 
                             # with open(filename, 'a') as f:
                             new_tweets = driver.find_elements_by_tag_name('article')
@@ -116,8 +116,8 @@ class Scraper:
                                 for new_tweet in new_tweets:
                                     tweets.append(new_tweet.get_attribute('outerHTML'))
 
-                                filename = f'{directory}/{current_date}.html'
-                                with open(filename, 'a') as f:
+                                with open(filename, 'w') as f:
+                                    tweets = list(dict.fromkeys(tweets))
                                     for tweet in tweets:
                                         soup = bs(tweet, features="lxml")               
                                         prettyHTML = soup.prettify()
@@ -125,6 +125,8 @@ class Scraper:
                                         
                                 break
                             last_height = new_height
+                        scraper_print(f'Finished scraping {filename}')
+            scraper_print(f'Finished scraping for {company["name"]} with keyword as "{company["keyword"]}"')   
 
 def main():
     scraper_print("Started")
