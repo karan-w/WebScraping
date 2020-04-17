@@ -15,9 +15,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from bs4 import BeautifulSoup as bs
 
-
-# from crawler import Crawler
-
 def scraper_print(text=""):
     now = datetime.datetime.now()
     current_time = now.strftime("%H:%M:%S")
@@ -114,21 +111,6 @@ class Scraper:
                             for new_tweet in new_tweets:
                                 tweets.append(new_tweet.get_attribute('outerHTML'))
                             
-                            # names = driver.find_elements_by_tag_name('span')
-                            # for span in names:
-                            #     if "css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0" not in span.get_attribute('class'):
-                            #         continue
-                            #     else:
-                            #         print(span.text)
-
-                            # for tag in section:
-                            #     if "css-901oao r-hkyrab r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-bnwqim r-qvutc0" not in tag.get_attribute('class'):
-                            #         continue
-                            #     else:
-                            #         print(tag.text)
-                            # hrefs.append(tag.text)
-                            
-                            # print(section)
                             if new_height == last_height:
                                 new_tweets = driver.find_elements_by_tag_name('article')
                                 for new_tweet in new_tweets:
@@ -143,8 +125,6 @@ class Scraper:
                                         
                                 break
                             last_height = new_height
-
-    
 
 def main():
     scraper_print("Started")
