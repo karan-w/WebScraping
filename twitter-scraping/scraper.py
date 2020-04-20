@@ -83,7 +83,7 @@ class Scraper:
 
                         options = webdriver.ChromeOptions()
                         options.add_argument("--start-maximized")
-                        options.add_argument("--headless")
+                        #soptions.add_argument("--headless")
 
                         # Initialize the Chrome webdriver and open the URL
                         driver = webdriver.Chrome(options=options)
@@ -121,8 +121,7 @@ class Scraper:
                                     print(f'Number of tweets - {len(tweets)}')
                                     for tweet in tweets:
                                         f.write(tweet)
-                
-                                        
+                                        f.write("##########")
                                 break
                             last_height = new_height
                         scraper_print(f'Finished scraping {filename}')
