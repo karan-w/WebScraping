@@ -83,7 +83,7 @@ class Scraper:
 
                         options = webdriver.ChromeOptions()
                         options.add_argument("--start-maximized")
-                        #soptions.add_argument("--headless")
+                        options.add_argument("--headless")
 
                         # Initialize the Chrome webdriver and open the URL
                         driver = webdriver.Chrome(options=options)
