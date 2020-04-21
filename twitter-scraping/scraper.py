@@ -74,9 +74,12 @@ class Scraper:
                 os.makedirs(directory)
             
             saved_files = os.listdir('./' + directory)
+            
             if len(saved_files)!=0:
                 last_saved_date = saved_files[-1].split('.')[0]
                 print('Found the last date saved as: ', last_saved_date)
+            else:
+                last_saved_date = str(dates[0])
 
             for index, obj in enumerate(dates):
                 if str(obj)<last_saved_date:
@@ -158,4 +161,4 @@ if __name__ == '__main__':
             pass
         else:
             break
-        
+
