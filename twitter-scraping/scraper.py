@@ -6,7 +6,6 @@ import threading
 from datetime import datetime
 import urllib
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
 import datetime
 import time
 import argparse
@@ -35,12 +34,16 @@ def init_argparse():
     parser.add_argument("-d", "--dates", dest="dates", required=True,
         help="CSV file with dates separated by newlines.", metavar="FILE"
     )
+    parser.add_argument("-p", "--path", dest="path", required=True,
+        help="Path to chromedriver for this scraper.", metavar="FILE"
+    )
     return parser
     
 class Scraper:
-    def __init__(self, companies='', dates=''):
+    def __init__(self, companies='', dates='', path=''):
         self.companies = companies
         self.dates = dates
+        self.path = path
         companies = None
         with open(self.companies, 'r') as f:
             companies = pd.read_csv(self.companies)
@@ -86,7 +89,7 @@ class Scraper:
                         options.add_argument("--headless")
 
                         # Initialize the Chrome webdriver and open the URL
-                        driver = webdriver.Chrome(options=options)
+                        driver = webdriver.Chrome(self.path, options=options)
 
                         scraper_print(f'Started scraping {filename}')
                         driver.get(search_url)
@@ -116,7 +119,7 @@ class Scraper:
                                 for new_tweet in new_tweets:
                                     tweets.append(new_tweet.get_attribute('outerHTML'))
 
-                                with open(filename, 'w') as f:
+                                with open(filename, 'w', encoding="utf-8") as f:
                                     tweets = list(dict.fromkeys(tweets))
                                     print(f'Number of tweets - {len(tweets)}')
                                     for tweet in tweets:
@@ -133,7 +136,7 @@ def main():
     args = parser.parse_args()
     scraper_print(f'Companies CSV file - {args.companies}')
     scraper_print(f'Dates CSV file - {args.dates}')
-    scraper = Scraper(args.companies, args.dates)
+    scraper = Scraper(args.companies, args.dates, args.path)
     
 if __name__ == '__main__':
     main()
