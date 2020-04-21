@@ -40,6 +40,7 @@ def init_argparse():
     return parser
     
 class Scraper:
+
     def __init__(self, companies='', dates='', path=''):
         self.companies = companies
         self.dates = dates
@@ -62,15 +63,25 @@ class Scraper:
             sys.exit('Empty dates file detected.')
         else:
             scraper_print(f'{len(dates)} dates found. Starting on {dates[0]} and ending on {dates[-1]}.')
-
+        
         for index, company in companies.iterrows(): 
             scraper_print(f'Starting scraping for {company["name"]} with keyword as "{company["keyword"]}"')
             next_date = current_date = None
             l = len(dates)
             directory = company["name"]
+
             if not os.path.exists(directory):
                 os.makedirs(directory)
+            
+            saved_files = os.listdir('./' + directory)
+            if len(saved_files)!=0:
+                last_saved_date = saved_files[-1].split('.')[0]
+                print('Found the last date saved as: ', last_saved_date)
+
             for index, obj in enumerate(dates):
+                if str(obj)<last_saved_date:
+                    print('Skipping: ', obj)
+                    continue
                 if index >= 0:
                     if index != l-1: #skip the last date because there's no next
                         next_date = dates[index + 1]
@@ -127,6 +138,7 @@ class Scraper:
                                         f.write("##########")
                                 break
                             last_height = new_height
+
                         scraper_print(f'Finished scraping {filename}')
             scraper_print(f'Finished scraping for {company["name"]} with keyword as "{company["keyword"]}"')   
 
@@ -139,5 +151,11 @@ def main():
     scraper = Scraper(args.companies, args.dates, args.path)
     
 if __name__ == '__main__':
-    main()
-    
+    while True:
+        try:
+            main()
+        except:
+            pass
+        else:
+            break
+        
