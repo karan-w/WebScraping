@@ -99,8 +99,8 @@ class Scraper:
                         search_url = "https://twitter.com/search?q=" + query 
 
                         options = webdriver.ChromeOptions()
-                        options.add_argument("--start-maximized")
-                        options.add_argument("--headless")
+                        options.add_argument('--start-maximized')
+                        #options.add_argument("--headless")
 
                         # Initialize the Chrome webdriver and open the URL
                         driver = webdriver.Chrome(self.path, options=options)
@@ -108,7 +108,7 @@ class Scraper:
                         scraper_print(f'Started scraping {filename}')
                         driver.get(search_url)
 
-                        SCROLL_PAUSE_TIME = 5
+                        SCROLL_PAUSE_TIME = 2
 
                         # Get scroll height
                         last_height = driver.execute_script("return document.body.scrollHeight")
@@ -143,6 +143,7 @@ class Scraper:
                             last_height = new_height
 
                         scraper_print(f'Finished scraping {filename}')
+                        driver.close()
             scraper_print(f'Finished scraping for {company["name"]} with keyword as "{company["keyword"]}"')   
 
 def main():
