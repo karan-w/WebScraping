@@ -1,29 +1,29 @@
-company_name,tic,member,status
-American Express,AXP,NA,pending
-Apple,AAPL,Karan,running
-Verizon Communications,VZ,NA,pending
-Boeing,BA,NA,pending
-Caterpillar Inc,CAT,NA,pending
-JPMorgan Chase,JPM,Prahlad,running 
-Chevron Corporation,CVX,NA,pending 
-Coca-Cola Co,KO,NA,pending
-Walt Disney Co,DIS,NA,pending 
-DuPont de Nemours Inc,DWDP,NA,pending
-Exxon Mobil Corporation,XOM,NA,pending  
-Home Depot Inc,HD,NA,pending  
-Intel Corporation,INTC,Prahlad,running  
-IBM,IBM,Prahlad,running  
-Johnson & Johnson,JNJ,NA,pending  
-Mcdonald's Corp,MCD,NA,pending  
-Merck & Co,MRK,NA,pending  
-3M Co,MMM,NA,pending 
-Nike Inc,NKE,NA,pending
-Pfizer Inc,PFE,Karan,running
-Procter & Gamble Co,PG,NA,pending 
-UnitedHealth Group Inc,UNH,NA,pending 
-Raytheon Technologies Corp,UTX,NA,pending  
-Walmart Inc,WMT,Karan,running
-Walgreens Boots Alliance Inc,WBA,NA,pending 
-Microsoft,MSFT,Prahlad,running
-Cisco Systems Inc,CSCO,Karan,running
-Goldman Sachs Group Inc,GS,NA,pending 
+company_name,tic,member,twitter_status,google_status,twitter_keyword,google_keyword
+American Express,AXP,NA,pending,done,,
+Apple,AAPL,Karan,running,done,$AAPL,
+Verizon Communications,VZ,NA,pending,done,,
+Boeing,BA,NA,pending,pending,,
+Caterpillar Inc,CAT,NA,pending,pending,,
+JPMorgan Chase,JPM,Prahlad,running ,done,$JPM,
+Chevron Corporation,CVX,NA,pending ,done,,
+Coca-Cola Co,KO,NA,pending,pending,,
+Walt Disney Co,DIS,NA,pending ,pending,,
+DuPont de Nemours Inc,DWDP,NA,pending,done,,
+Exxon Mobil Corporation,XOM,NA,pending  ,done,,
+Home Depot Inc,HD,NA,pending  ,pending,,
+Intel Corporation,INTC,Prahlad,running  ,done,$INTC,
+IBM,IBM,Prahlad,done,pending,$IBM,
+Johnson & Johnson,JNJ,NA,pending  ,done,,
+Mcdonald's Corp,MCD,NA,pending  ,pending,,
+Merck & Co,MRK,NA,pending  ,done,,
+3M Co,MMM,NA,pending ,done,,
+Nike Inc,NKE,NA,pending,done,,
+Pfizer Inc,PFE,Karan,running,done,,
+Procter & Gamble Co,PG,NA,pending ,pending,,
+UnitedHealth Group Inc,UNH,NA,pending ,pending,,
+Raytheon Technologies Corp,UTX,NA,pending  ,done,,
+Walmart Inc,WMT,Karan,running,done,$WMT,
+Walgreens Boots Alliance Inc,WBA,NA,pending ,pending,,
+Microsoft,MSFT,Prahlad,done,done,$MSFT,
+Cisco Systems Inc,CSCO,NA,pending,done,,
+Goldman Sachs Group Inc,GS,NA,pending ,pending,,
