@@ -74,6 +74,7 @@ class Scraper:
                 os.makedirs(directory)
             
             saved_files = os.listdir('./' + directory)
+            saved_files.sort()
             
             if len(saved_files)!=0:
                 last_saved_date = saved_files[-1].split('.')[0]
