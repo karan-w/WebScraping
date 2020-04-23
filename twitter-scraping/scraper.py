@@ -108,7 +108,7 @@ class Scraper:
                         scraper_print(f'Started scraping {filename}')
                         driver.get(search_url)
 
-                        SCROLL_PAUSE_TIME = 2
+                        SCROLL_PAUSE_TIME = 4
 
                         # Get scroll height
                         last_height = driver.execute_script("return document.body.scrollHeight")
