@@ -1,29 +1,31 @@
 company_name,tic,member,twitter_status,google_status,twitter_keyword,google_keyword
-American Express,AXP,NA,pending,done,,
-Apple,AAPL,Karan,running,done,$AAPL,
-Verizon Communications,VZ,NA,pending,done,,
-Boeing,BA,NA,pending,pending,,
-Caterpillar Inc,CAT,NA,pending,pending,,
-JPMorgan Chase,JPM,Prahlad,running ,done,$JPM,
-Chevron Corporation,CVX,NA,pending ,done,,
-Coca-Cola Co,KO,NA,pending,pending,,
-Walt Disney Co,DIS,NA,pending ,pending,,
-DuPont de Nemours Inc,DWDP,NA,pending,done,,
-Exxon Mobil Corporation,XOM,NA,pending  ,done,,
-Home Depot Inc,HD,NA,pending  ,pending,,
-Intel Corporation,INTC,Prahlad,done,done,$INTC,
-IBM,IBM,Prahlad,done,pending,$IBM,
-Johnson & Johnson,JNJ,Prahlad,running,done,$JNJ,
-Mcdonald's Corp,MCD,NA,pending  ,pending,,
-Merck & Co,MRK,NA,pending  ,done,,
-3M Co,MMM,NA,pending ,done,,
-Nike Inc,NKE,NA,pending,done,,
-Pfizer Inc,PFE,Karan,running,done,,
-Procter & Gamble Co,PG,NA,pending ,pending,,
-UnitedHealth Group Inc,UNH,NA,pending ,pending,,
-Raytheon Technologies Corp,UTX,NA,pending  ,done,,
-Walmart Inc,WMT,Karan,running,done,$WMT,
-Walgreens Boots Alliance Inc,WBA,NA,pending ,pending,,
-Microsoft,MSFT,Prahlad,done,done,$MSFT,
-Cisco Systems Inc,CSCO,NA,pending,done,,
-Goldman Sachs Group Inc,GS,Prahlad,running,pending,$GS,
+American Express,AXP,NA,pending,done,,AXP
+Apple,AAPL,Karan,running,done,$AAPL,AAPL
+Verizon Communications,VZ,NA,pending,done,,VZ
+Boeing,BA,NA,pending,pending,,BA stock
+Caterpillar Inc,CAT,NA,pending,pending,,CAT stock
+JPMorgan Chase,JPM,Prahlad,running,done,$JPM,JPM
+Chevron Corporation,CVX,NA,pending,done,,CVX
+Coca-Cola Co,KO,NA,pending,pending,,KO stock
+Walt Disney Co,DIS,NA,pending,pending,,DIS stock
+DuPont de Nemours Inc,DWDP,NA,pending,done,,DWDP
+Exxon Mobil Corporation,XOM,NA,pending,done,,XOM
+Home Depot Inc,HD,NA,pending,pending,,HD stock
+Intel Corporation,INTC,Prahlad,done,done,$INTC,INTC
+IBM,IBM,Prahlad,done,done,$IBM,IBM
+Johnson & Johnson,JNJ,Prahlad,running,done,$JNJ,JNJ
+Mcdonald's Corp,MCD,NA,pending,done,,McDonalds stock
+Merck & Co,MRK,NA,pending,done,,MRK
+3M Co,MMM,NA,pending,done,,MMM
+Nike Inc,NKE,NA,pending,done,,NKE
+Pfizer Inc,PFE,Karan,running,done,,PFE
+Procter & Gamble Co,PG,NA,pending,done,,PG stock
+UnitedHealth Group Inc,UNH,NA,pending,done,,UNH stock
+Raytheon Technologies Corp,UTX,NA,pending,done,,UTX
+Walmart Inc,WMT,Karan,running,done,$WMT,WMT
+Walgreens Boots Alliance Inc,WBA,NA,pending,pending,,WBA stock
+Microsoft,MSFT,Prahlad,done,done,$MSFT,MSFT
+Cisco Systems Inc,CSCO,NA,pending,done,,CSCO
+Goldman Sachs Group Inc,GS,Prahlad,running,pending,$GS,GS stock
+Visa,V,NA,pending ,pending,,V stock
+Travelers,TRV,NA,pending,done,,TRV
