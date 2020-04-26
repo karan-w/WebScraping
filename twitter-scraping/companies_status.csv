@@ -10,7 +10,7 @@ Coca-Cola Co,KO,Prahlad,running,pending,$KO,KO stock
 Walt Disney Co,DIS,Karan,running,pending,$DIS,DIS stock
 DuPont de Nemours Inc,DWDP,Prahlad,running,done,"$DWDP, DuPont",DWDP
 Exxon Mobil Corporation,XOM,Karan,running,done,$XOM,XOM
-Home Depot Inc,HD,NA,pending,pending,,HD stock
+Home Depot Inc,HD,NA,pending,done,,HD stock
 Intel Corporation,INTC,Prahlad,done,done,$INTC,INTC
 IBM,IBM,Prahlad,done,done,$IBM,IBM
 Johnson & Johnson,JNJ,Prahlad,done,done,$JNJ,JNJ
