@@ -15,7 +15,7 @@ import pandas as pd
 # Variables that need to be modified by the user
 ticker_name = "WBA+stock"
 ticker = "WBA"
-dir_name = 'WALGREEN'
+dir_name = 'GoogleNewsSentiment'
 
   
 def sentiment_scores(sentence): 
@@ -42,6 +42,7 @@ def sentiment_scores(sentence):
     return sentiment_dict['compound']
 
 
+
 data_1 = pd.read_csv(r'dow_jones_30_daily_price.csv')
 select_stocks_list = [ticker]
 
@@ -62,6 +63,14 @@ date_sentiment["sentiment"] = [0 for date in dates]
 
 query = "&tbm=nws&ei=2WlNXpSDE66W4-EPi_mtgA8&q=" + ticker_name + "&oq=" + ticker_name + "&gs_l=psy-ab.3..0l10.5670.5670.0.6280.1.1.0.0.0.0.161.161.0j1.1.0....0...1c.1.64.psy-ab..0.1.161....0._Azay032u5U"
 
+if not os.path.exists(dir_name):
+    try:
+        os.mkdir(dir_name)
+    except OSError:
+        print ("[INFO] Creation of the directory {} failed".format(os.path.abspath(dir_name)))
+    else:
+        print ("[INFO] Successfully created the directory {} ".format(os.path.abspath(dir_name)))
+
 for date in dates:
 
     if date<20070101:
@@ -73,7 +82,7 @@ for date in dates:
 
     options = webdriver.ChromeOptions()
     options.add_argument("--start-maximized")
-    options.add_argument("--headless")
+    # options.add_argument("--headless")
 
     driver = webdriver.Chrome(options=options)
     driver.get(url)
@@ -87,7 +96,7 @@ for date in dates:
 
     pages=driver.find_elements_by_xpath("//*[@id='nav']/tbody/tr/td/a")
     counter=1 
-    print("Num", len(pages))
+    print("Number of pages - ", len(pages))
 
     if len(pages)==0:
         pages = [0]
@@ -117,13 +126,6 @@ for date in dates:
     delta = end-start
     print("[INFO] Total time taken to scroll till the end {}".format(delta))
 
-    if not os.path.exists(dir_name):
-        try:
-            os.mkdir(dir_name)
-        except OSError:
-            print ("[INFO] Creation of the directory {} failed".format(os.path.abspath(dir_name)))
-        else:
-            print ("[INFO] Successfully created the directory {} ".format(os.path.abspath(dir_name)))
 
     polarity = 0
     polarities = []
@@ -149,4 +151,5 @@ for date in dates:
     date_sentiment["sentiment"] = sentiments
 
     dates_df = pd.DataFrame(date_sentiment)
-    dates_df.to_csv('sentiment_' + ticker + '.csv')
+    SENTIMENT_FILE_PATH = os.path.join(dir_name, 'sentiment_' + ticker + '.csv')
+    dates_df.to_csv(SENTIMENT_FILE_PATH)
