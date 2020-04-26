@@ -3,6 +3,19 @@ from bs4 import BeautifulSoup
 import pickle 
 import csv 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer 
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+import datetime
+import time
+import argparse
+import os
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Variables that need to be modified by the user
+ticker_name = "WBA+stock"
+ticker = "WBA"
+dir_name = 'WALGREEN'
 
   
 def sentiment_scores(sentence): 
@@ -28,14 +41,6 @@ def sentiment_scores(sentence):
         print("Neutral") 
     return sentiment_dict['compound']
 
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-import datetime
-import time
-import argparse
-import os
-import matplotlib.pyplot as plt
-import pandas as pd
 
 data_1 = pd.read_csv(r'dow_jones_30_daily_price.csv')
 select_stocks_list = ['WBA']
@@ -55,11 +60,7 @@ date_sentiment = dict()
 date_sentiment["datadate"] = dates
 date_sentiment["sentiment"] = [0 for date in dates]
 
-ticker_name = "WBA+stock"
-ticker = "WBA"
 query = "&tbm=nws&ei=2WlNXpSDE66W4-EPi_mtgA8&q=" + ticker_name + "&oq=" + ticker_name + "&gs_l=psy-ab.3..0l10.5670.5670.0.6280.1.1.0.0.0.0.161.161.0j1.1.0....0...1c.1.64.psy-ab..0.1.161....0._Azay032u5U"
-
-dir_name = 'WALGREEN'
 
 for date in dates:
 
