@@ -15,6 +15,7 @@ import pandas as pd
 from bs4 import BeautifulSoup as bs
 import signal
 import sys
+import time
 
 def signal_handler(sig, frame):
     print('You pressed Ctrl+C!')
@@ -111,6 +112,7 @@ class Scraper:
 
                         # Initialize the Chrome webdriver and open the URL
                         driver = webdriver.Chrome(self.path, options=options)
+                        time.sleep(1)
 
                         scraper_print(f'Started scraping {filename}')
                         driver.get(search_url)
