@@ -43,7 +43,7 @@ def sentiment_scores(sentence):
 
 
 data_1 = pd.read_csv(r'dow_jones_30_daily_price.csv')
-select_stocks_list = ['WBA']
+select_stocks_list = [ticker]
 
 data_2 = data_1[data_1.tic.isin(select_stocks_list)][~data_1.datadate.isin(['20010912','20010913'])]
 
