@@ -63,7 +63,7 @@ dir_name = 'WALGREEN'
 
 for date in dates:
 
-    if date<20180921:
+    if date<20070101:
         continue
     
     str_date = str(date)
