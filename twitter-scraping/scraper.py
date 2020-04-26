@@ -13,6 +13,12 @@ import os
 import matplotlib.pyplot as plt
 import pandas as pd
 from bs4 import BeautifulSoup as bs
+import signal
+import sys
+
+def signal_handler(sig, frame):
+    print('You pressed Ctrl+C!')
+    sys.exit(0)
 
 def scraper_print(text=""):
     now = datetime.datetime.now()
@@ -109,7 +115,7 @@ class Scraper:
                         scraper_print(f'Started scraping {filename}')
                         driver.get(search_url)
 
-                        SCROLL_PAUSE_TIME = 4
+                        SCROLL_PAUSE_TIME = 3
 
                         # Get scroll height
                         last_height = driver.execute_script("return document.body.scrollHeight")
@@ -158,8 +164,10 @@ def main():
 if __name__ == '__main__':
     while True:
         try:
+            signal.signal(signal.SIGINT, signal_handler)
             main()
-        except:
+        except Exception as e:
+            print(e)
             pass
         else:
             break
