@@ -1,29 +1,29 @@
 company_name,tic,member,twitter_status,google_status,twitter_keyword,google_keyword
-American Express,AXP,Prahlad,running,done,$AXP,AXP
+American Express,AXP,Prahlad,done,done,$AXP,AXP
 Apple,AAPL,Karan,done,done,$AAPL,AAPL
 Verizon Communications,VZ,Karan,running,done,$VZ,VZ
-Boeing,BA,Karan,running,running,$BA,BA stock
-Caterpillar Inc,CAT,NA,pending,pending,,CAT stock
+Boeing,BA,Prahlad,running,running,$BA,BA stock
+Caterpillar Inc,CAT,Prahlad,pending,pending,,CAT stock
 JPMorgan Chase,JPM,Prahlad,done,done,$JPM,JPM
-Chevron Corporation,CVX,Prahlad,running,done,$CVX,CVX
-Coca-Cola Co,KO,Prahlad,running,pending,$KO,KO stock
-Walt Disney Co,DIS,Karan,running,pending,$DIS,DIS stock
-DuPont de Nemours Inc,DWDP,Prahlad,running,done,"$DWDP, DuPont",DWDP
+Chevron Corporation,CVX,Prahlad,done,done,$CVX,CVX
+Coca-Cola Co,KO,Prahlad,done,pending,$KO,KO stock
+Walt Disney Co,DIS,Prahlad,running,pending,$DIS,DIS stock
+DuPont de Nemours Inc,DWDP,Prahlad,done,done,"$DWDP, DuPont",DWDP
 Exxon Mobil Corporation,XOM,Karan,running,done,$XOM,XOM
-Home Depot Inc,HD,NA,pending,done,,HD stock
+Home Depot Inc,HD,Prahlad,running,done,$HD,HD stock
 Intel Corporation,INTC,Prahlad,done,done,$INTC,INTC
 IBM,IBM,Prahlad,done,done,$IBM,IBM
 Johnson & Johnson,JNJ,Prahlad,done,done,$JNJ,JNJ
 Mcdonald's Corp,MCD,Karan,running,done,$MCD,McDonalds stock
-Merck & Co,MRK,NA,pending,done,,MRK
-3M Co,MMM,Prahlad,running,done,$MMM,MMM
-Nike Inc,NKE,Prahlad,running,done,$NKE,NKE
+Merck & Co,MRK,Prahlad,pending,done,,MRK
+3M Co,MMM,Prahlad,done,done,$MMM,MMM
+Nike Inc,NKE,Prahlad,done,done,$NKE,NKE
 Pfizer Inc,PFE,Karan,running,done,,PFE
-Procter & Gamble Co,PG,NA,pending,done,,PG stock
-UnitedHealth Group Inc,UNH,Prahlad,running,done,$UNH,UNH stock
-Raytheon Technologies Corp,UTX,NA,pending,done,,UTX
+Procter & Gamble Co,PG,Prahlad,running,done,$PG,PG stock
+UnitedHealth Group Inc,UNH,Prahlad,done,done,$UNH,UNH stock
+Raytheon Technologies Corp,RTX,Prahlad,running,done,$RTX,UTX
 Walmart Inc,WMT,Prahlad,done,done,$WMT,WMT
-Walgreens Boots Alliance Inc,WBA,NA,pending,done,,WBA stock
+Walgreens Boots Alliance Inc,WBA,Prahlad,running,done,$WBA,WBA stock
 Microsoft,MSFT,Prahlad,done,done,$MSFT,MSFT
 Cisco Systems Inc,CSCO,Prahlad,done,done,$CSCO,CSCO
 Goldman Sachs Group Inc,GS,Prahlad,done,pending,$GS,GS stock
