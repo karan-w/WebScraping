@@ -3,11 +3,11 @@ American Express,AXP,Prahlad,done,done,$AXP,AXP
 Apple,AAPL,Karan,done,done,$AAPL,AAPL
 Verizon Communications,VZ,Prahlad,pending,done,$VZ,VZ
 Boeing,BA,Prahlad,running,done,$BA,BA stock
-Caterpillar Inc,CAT,Prahlad,pending,running,,CAT stock
+Caterpillar Inc,CAT,Prahlad,pending,done,,CAT stock
 JPMorgan Chase,JPM,Prahlad,done,done,$JPM,JPM
 Chevron Corporation,CVX,Prahlad,done,done,$CVX,CVX
 Coca-Cola Co,KO,Prahlad,done,running,$KO,KO stock
-Walt Disney Co,DIS,Prahlad,running,pending,$DIS,DIS stock
+Walt Disney Co,DIS,Prahlad,running,running,$DIS,DIS stock
 DuPont de Nemours Inc,DWDP,Prahlad,done,done,"$DWDP, DuPont",DWDP
 Exxon Mobil Corporation,XOM,Prahlad,pending,done,$XOM,XOM
 Home Depot Inc,HD,Prahlad,running,done,$HD,HD stock
@@ -26,4 +26,4 @@ Walmart Inc,WMT,Prahlad,done,done,$WMT,WMT
 Walgreens Boots Alliance Inc,WBA,Prahlad,running,done,$WBA,WBA stock
 Microsoft,MSFT,Prahlad,done,done,$MSFT,MSFT
 Cisco Systems Inc,CSCO,Prahlad,done,done,$CSCO,CSCO
-Goldman Sachs Group Inc,GS,Prahlad,done,pending,$GS,GS stock
+Goldman Sachs Group Inc,GS,Prahlad,done,running,$GS,GS stock
