@@ -11,9 +11,10 @@ import argparse
 import os
 import matplotlib.pyplot as plt
 import pandas as pd
+import urllib.parse
 
 # Variables that need to be modified by the user
-ticker_name = "WBA+stock"
+ticker_name = '"KO stock"'  #this is the keyword
 ticker = "WBA"
 dir_name = 'GoogleNewsSentiment'
 
@@ -61,7 +62,7 @@ date_sentiment = dict()
 date_sentiment["datadate"] = dates
 date_sentiment["sentiment"] = [0 for date in dates]
 
-query = "&tbm=nws&ei=2WlNXpSDE66W4-EPi_mtgA8&q=" + ticker_name + "&oq=" + ticker_name + "&gs_l=psy-ab.3..0l10.5670.5670.0.6280.1.1.0.0.0.0.161.161.0j1.1.0....0...1c.1.64.psy-ab..0.1.161....0._Azay032u5U"
+query = "&tbm=nws&ei=2WlNXpSDE66W4-EPi_mtgA8&q=" + ticker_name + "&oq=" + urllib.parse.quote(ticker_name) + "&gs_l=psy-ab.3..0l10.5670.5670.0.6280.1.1.0.0.0.0.161.161.0j1.1.0....0...1c.1.64.psy-ab..0.1.161....0._Azay032u5U"
 
 if not os.path.exists(dir_name):
     try:
