@@ -2,7 +2,7 @@ company_name,tic,member,twitter_status,google_status,twitter_keyword,google_keyw
 American Express,AXP,Prahlad,done,done,$AXP,AXP
 Apple,AAPL,Karan,done,done,$AAPL,AAPL
 Verizon Communications,VZ,Prahlad,pending,done,$VZ,VZ
-Boeing,BA,Prahlad,running,running,$BA,BA stock
+Boeing,BA,Prahlad,running,done,$BA,BA stock
 Caterpillar Inc,CAT,Prahlad,pending,running,,CAT stock
 JPMorgan Chase,JPM,Prahlad,done,done,$JPM,JPM
 Chevron Corporation,CVX,Prahlad,done,done,$CVX,CVX
