@@ -1,24 +1,24 @@
 company_name,tic,member,twitter_status,google_status,twitter_keyword,google_keyword
 American Express,AXP,Prahlad,done,done,$AXP,AXP
 Apple,AAPL,Karan,done,done,$AAPL,AAPL
-Verizon Communications,VZ,Karan,running,done,$VZ,VZ
+Verizon Communications,VZ,Prahlad,pending,done,$VZ,VZ
 Boeing,BA,Prahlad,running,running,$BA,BA stock
-Caterpillar Inc,CAT,Prahlad,pending,pending,,CAT stock
+Caterpillar Inc,CAT,Prahlad,pending,running,,CAT stock
 JPMorgan Chase,JPM,Prahlad,done,done,$JPM,JPM
 Chevron Corporation,CVX,Prahlad,done,done,$CVX,CVX
 Coca-Cola Co,KO,Prahlad,done,pending,$KO,KO stock
 Walt Disney Co,DIS,Prahlad,running,pending,$DIS,DIS stock
 DuPont de Nemours Inc,DWDP,Prahlad,done,done,"$DWDP, DuPont",DWDP
-Exxon Mobil Corporation,XOM,Karan,running,done,$XOM,XOM
+Exxon Mobil Corporation,XOM,Prahlad,pending,done,$XOM,XOM
 Home Depot Inc,HD,Prahlad,running,done,$HD,HD stock
 Intel Corporation,INTC,Prahlad,done,done,$INTC,INTC
 IBM,IBM,Prahlad,done,done,$IBM,IBM
 Johnson & Johnson,JNJ,Prahlad,done,done,$JNJ,JNJ
-Mcdonald's Corp,MCD,Karan,running,done,$MCD,McDonalds stock
+Mcdonald's Corp,MCD,Prahlad,pending,done,$MCD,McDonalds stock
 Merck & Co,MRK,Prahlad,pending,done,,MRK
 3M Co,MMM,Prahlad,done,done,$MMM,MMM
 Nike Inc,NKE,Prahlad,done,done,$NKE,NKE
-Pfizer Inc,PFE,Karan,running,done,,PFE
+Pfizer Inc,PFE,Prahlad,pending,done,,PFE
 Procter & Gamble Co,PG,Prahlad,running,done,$PG,PG stock
 UnitedHealth Group Inc,UNH,Prahlad,done,done,$UNH,UNH stock
 Raytheon Technologies Corp,RTX,Prahlad,running,done,$RTX,UTX
