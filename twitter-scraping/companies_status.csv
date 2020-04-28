@@ -1,29 +1,29 @@
 company_name,tic,member,twitter_status,google_status,twitter_keyword,google_keyword
 American Express,AXP,Prahlad,done,done,$AXP,AXP
 Apple,AAPL,Karan,done,done,$AAPL,AAPL
-Verizon Communications,VZ,Prahlad,pending,done,$VZ,VZ
-Boeing,BA,Prahlad,running,done,$BA,BA stock
-Caterpillar Inc,CAT,Prahlad,pending,done,,CAT stock
+Verizon Communications,VZ,Prahlad,running,done,$VZ,VZ
+Boeing,BA,Prahlad,done,done,$BA,BA stock
+Caterpillar Inc,CAT,Prahlad,running,done,“Caterpillar Stock”,CAT stock
 JPMorgan Chase,JPM,Prahlad,done,done,$JPM,JPM
 Chevron Corporation,CVX,Prahlad,done,done,$CVX,CVX
 Coca-Cola Co,KO,Prahlad,done,running,$KO,KO stock
-Walt Disney Co,DIS,Prahlad,running,running,$DIS,DIS stock
-DuPont de Nemours Inc,DWDP,Prahlad,done,done,"$DWDP, DuPont",DWDP
-Exxon Mobil Corporation,XOM,Prahlad,pending,done,$XOM,XOM
+Walt Disney Co,DIS,Prahlad,done,running,$DIS,DIS stock
+DuPont de Nemours Inc,DWDP,Prahlad,done,done,"$DWDP, $DD",DWDP
+Exxon Mobil Corporation,XOM,Prahlad,running,done,$XOM,XOM
 Home Depot Inc,HD,Prahlad,running,done,$HD,HD stock
 Intel Corporation,INTC,Prahlad,done,done,$INTC,INTC
 IBM,IBM,Prahlad,done,done,$IBM,IBM
 Johnson & Johnson,JNJ,Prahlad,done,done,$JNJ,JNJ
-Mcdonald's Corp,MCD,Prahlad,pending,done,$MCD,McDonalds stock
-Merck & Co,MRK,Prahlad,pending,done,,MRK
+Mcdonald's Corp,MCD,Prahlad,running,done,$MCD,McDonalds stock
+Merck & Co,MRK,Prahlad,running,done,$MRK,MRK
 3M Co,MMM,Prahlad,done,done,$MMM,MMM
 Nike Inc,NKE,Prahlad,done,done,$NKE,NKE
 Pfizer Inc,PFE,Prahlad,running,done,$PFE,PFE
 Procter & Gamble Co,PG,Prahlad,running,done,$PG,PG stock
 UnitedHealth Group Inc,UNH,Prahlad,done,done,$UNH,UNH stock
-Raytheon Technologies Corp,RTX,Prahlad,running,done,$RTX,UTX
+Raytheon Technologies Corp,RTX,Prahlad,done,done,$RTX,UTX
 Walmart Inc,WMT,Prahlad,done,done,$WMT,WMT
-Walgreens Boots Alliance Inc,WBA,Prahlad,running,done,$WBA,WBA stock
+Walgreens Boots Alliance Inc,WBA,Prahlad,done,done,$WBA,WBA stock
 Microsoft,MSFT,Prahlad,done,done,$MSFT,MSFT
 Cisco Systems Inc,CSCO,Prahlad,done,done,$CSCO,CSCO
 Goldman Sachs Group Inc,GS,Prahlad,done,running,$GS,GS stock
