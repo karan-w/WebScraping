@@ -5,6 +5,9 @@ from bs4 import BeautifulSoup as bs
 import csv
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer 
 import os
+import json
+import re
+import html as html_lib
 
 def init_argparse():
     parser = argparse.ArgumentParser(
@@ -57,11 +60,11 @@ class Processor:
     def process_company(self, company_name, dates, company_tic):
         processor_print(f'Starting processing {company_name}.')
         self.process_all_HTML_files(company_name, dates) # will process all Microsoft/*.html and create Microsoft/*.csv
-        self.create_company_sentiment_sheet(company_name, dates, company_tic) # will create sentiment_MSFT.csv from above CSVs
+        # self.create_company_sentiment_sheet(company_name, dates, company_tic) # will create sentiment_MSFT.csv from above CSVs
         processor_print(f'Finished processing {company_name}')
 
     def process_all_HTML_files(self, company_name, dates):
-        for date in dates[:-1]:
+        for date in dates:
             filename = f'{company_name}/{str(date)}.html'
             self.process_HTML_file(filename)
 
@@ -76,57 +79,100 @@ class Processor:
             try:
                 article = article.find(attrs={"data-testid":"tweet"})
                 tweet = article.contents[len(article) - 1]
+            except: 
+                tweet = ""
+            try:
                 date = tweet.find('a', 'css-4rbku5 css-18t94o4 css-901oao r-1re7ezh r-1loqt21 r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-3s2u2q r-qvutc0')
-                date = date.text
+                date_text = date.text
+            except:
+                date_text = ""
+            try:
+                tweet_link = "https://www.twitter.com" + str(date['href'])
+            except:
+                tweet_link = ""
+            try:
                 authors = tweet.find_all('span', 'css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0')
                 handle = authors[2]
                 handle = handle.text
+            except:
+                handle = ""
+            try:
                 name = authors[1]
                 name = name.text
+            except:
+                name = ""
+            # for author in authors:
+            #     print(author)
+            try:
                 replies = authors[-3]
                 replies = replies.text
+                replies = int(replies.replace(" ", ""))
+            except:
+                replies = 0
+            try:
                 retweets = authors[-2]
                 retweets = retweets.text
+                retweets = int(retweets.replace(" ", ""))
+            except:
+                retweets = 0
+            try:
                 favourites = authors[-1]
                 favourites = favourites.text
+                favourites = int(favourites.replace(" ", ""))
+            except:
+                favourites = 0
+            try:
                 text = tweet.find('div', 'css-901oao r-hkyrab r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-bnwqim r-qvutc0')
                 text = text.text
                 text = text.strip('\n')
-                text = text.strip('\t')
-                print(type(replies))
-                print(replies)
-                tweet_data = {
-                    'date': date,
-                    'handle': handle,
-                    'name': name,
-                    'tweet_text': text,
-                    'replies': int(replies.replace(" ", "")),
-                    'retweets': int(retweets.replace(" ", "")), 
-                    'favourites': int(favourites.replace(" ", "")),
-                }
-            except: 
-                tweet_data = {
-                    'date': "",
-                    'handle': "",
-                    'name': "",
-                    'tweet_text': "",
-                    'replies': 0,
-                    'retweets': 0, 
-                    'favourites': 0,
-                }
+                text = text.strip('\t') 
+                text = html_lib.unescape(text)
+            except Exception as e: 
+                print(e)
+                text = ""
+            
+            if replies == 0 or retweets == 0 or favourites == 0:
+                try:
+                    engagement_data = tweet.find('div', 'css-1dbjc4n r-18u37iz r-1wtj0ep r-156q2ks r-1mdbhws')
+                    engagement_data = engagement_data['aria-label']
+                    engagement_data = engagement_data.split(",")
+                    for data in engagement_data:
+                        data = data.lower()
+                        if "repl" in data and replies == 0:
+                            count = re.sub('\D', '', data)
+                            replies = int(count)
+                        elif "lik" in data and favourites == 0:
+                            count = re.sub('\D', '', data)
+                            favourites = int(count)
+                        elif "retweet" in data and retweets == 0:
+                            count = re.sub('\D', '', data)
+                            retweets = int(count)
+                except Exception as e:
+                    continue
+
+            
+            tweet_data = {
+                'date': date_text,
+                'handle': handle,
+                'name': name,
+                'tweet_text': text,
+                'replies': replies,
+                'retweets': retweets, 
+                'favourites': favourites,
+                'tweet_link': tweet_link
+            }
 
             tweets_data.append(tweet_data)
             
-        fields = ['date', 'handle', 'name', 'tweet_text', 'replies', 'retweets', 'favourites']  
-
-        csv_filename = filename[:-5] + ".csv"
-            
-        with open(csv_filename, 'w') as csvfile:  
-            writer = csv.DictWriter(csvfile, fieldnames = fields)  
-            writer.writeheader()  
-            writer.writerows(tweets_data) 
-
-        processor_print(f'Created {csv_filename}')
+        json_filename = filename[:-5] + ".json"
+        
+       
+        with open(json_filename, 'w') as json_file:  
+            processor_print(f'Created {json_filename}')
+            processor_print(f'Writing {len(tweets_data)} tweets to {json_filename}')
+            for tweet_data in tweets_data:
+                json_obj = json.dumps(tweet_data, indent=4, sort_keys=True) #, csv_file, indent=4, sort_keys=True)
+                json_file.write(json_obj)
 
         processor_print(f'Finished processing {filename}')
 
@@ -152,8 +198,6 @@ class Processor:
                             if line_count == 0:
                                 line_count += 1
                             p = self.sentiment_scores(row["tweet_text"])
-                            print(f'p - {p}')
-                            print(f'polarity - {polarity}')
                             polarity += p
                             line_count += 1
                         if line_count > 1:
