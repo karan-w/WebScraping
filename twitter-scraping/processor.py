@@ -59,8 +59,8 @@ class Processor:
 
     def process_company(self, company_name, dates, company_tic):
         processor_print(f'Starting processing {company_name}.')
-        self.process_all_HTML_files(company_name, dates) # will process all Microsoft/*.html and create Microsoft/*.csv
-        # self.create_company_sentiment_sheet(company_name, dates, company_tic) # will create sentiment_MSFT.csv from above CSVs
+        self.process_all_HTML_files(company_name, dates) # will process all Microsoft/*.html and create Microsoft/*.json
+        self.create_company_sentiment_sheet(company_name, dates, company_tic) # will create sentiment_MSFT.csv from above JSON files
         processor_print(f'Finished processing {company_name}')
 
     def process_all_HTML_files(self, company_name, dates):
@@ -74,32 +74,39 @@ class Processor:
             html = f.read()
         soup = bs(html, features="lxml")               
         articles = soup.find_all('article')
+        processor_print(f'Tweets found in HTML = {len(articles)}')
+        # print(articles[18])
         tweets_data = []
-        for article in articles:
+        for index, article in enumerate(articles):
             try:
                 article = article.find(attrs={"data-testid":"tweet"})
                 tweet = article.contents[len(article) - 1]
             except: 
+                processor_print(f'Extraction of tweet #{index} failed.')
                 tweet = ""
             try:
                 date = tweet.find('a', 'css-4rbku5 css-18t94o4 css-901oao r-1re7ezh r-1loqt21 r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-3s2u2q r-qvutc0')
                 date_text = date.text
             except:
+                processor_print(f'Extraction of date of tweet #{index} failed.')
                 date_text = ""
             try:
                 tweet_link = "https://www.twitter.com" + str(date['href'])
             except:
+                processor_print(f'Extraction of href of tweet #{index} failed.')
                 tweet_link = ""
             try:
                 authors = tweet.find_all('span', 'css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0')
                 handle = authors[2]
                 handle = handle.text
             except:
+                processor_print(f'Extraction of handle of author of tweet #{index} failed.')
                 handle = ""
             try:
                 name = authors[1]
                 name = name.text
             except:
+                processor_print(f'Extraction of name of author of tweet #{index} failed.')
                 name = ""
             # for author in authors:
             #     print(author)
@@ -108,18 +115,21 @@ class Processor:
                 replies = replies.text
                 replies = int(replies.replace(" ", ""))
             except:
+                processor_print(f'Extraction of replies to tweet #{index} failed.')
                 replies = 0
             try:
                 retweets = authors[-2]
                 retweets = retweets.text
                 retweets = int(retweets.replace(" ", ""))
             except:
+                processor_print(f'Extraction of retweets of tweet #{index} failed.')
                 retweets = 0
             try:
                 favourites = authors[-1]
                 favourites = favourites.text
                 favourites = int(favourites.replace(" ", ""))
             except:
+                processor_print(f'Extraction of favourites of tweet #{index} failed.')
                 favourites = 0
             try:
                 text = tweet.find('div', 'css-901oao r-hkyrab r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-bnwqim r-qvutc0')
@@ -128,9 +138,13 @@ class Processor:
                 text = text.strip('\t') 
                 text = html_lib.unescape(text)
             except Exception as e: 
-                print(e)
+                processor_print(f'Extraction of text of tweet #{index} failed.')
                 text = ""
-            
+            try:
+                polarity = self.sentiment_scores(text)
+            except Exception as e:
+                polarity = 0
+                processor_print(f'Polarity of text of tweet #{index} couldn\'t be found.')
             if replies == 0 or retweets == 0 or favourites == 0:
                 try:
                     engagement_data = tweet.find('div', 'css-1dbjc4n r-18u37iz r-1wtj0ep r-156q2ks r-1mdbhws')
@@ -148,7 +162,7 @@ class Processor:
                             count = re.sub('\D', '', data)
                             retweets = int(count)
                 except Exception as e:
-                    continue
+                    processor_print(f'Extraction of engagement description of tweet #{index} failed.')
 
             
             tweet_data = {
@@ -159,7 +173,8 @@ class Processor:
                 'replies': replies,
                 'retweets': retweets, 
                 'favourites': favourites,
-                'tweet_link': tweet_link
+                'tweet_link': tweet_link,
+                'polarity': polarity
             }
 
             tweets_data.append(tweet_data)
@@ -170,9 +185,16 @@ class Processor:
         with open(json_filename, 'w') as json_file:  
             processor_print(f'Created {json_filename}')
             processor_print(f'Writing {len(tweets_data)} tweets to {json_filename}')
-            for tweet_data in tweets_data:
-                json_obj = json.dumps(tweet_data, indent=4, sort_keys=True) #, csv_file, indent=4, sort_keys=True)
-                json_file.write(json_obj)
+            tweets = {
+                "tweets_count": len(tweets_data),
+                "tweets_in_html": len(articles),
+                "all_tweets": tweets_data
+            }
+            # for tweet_data in tweets_data:
+            #     tweets['all_tweets'].append(tweet_data)
+            #     # json_obj = json.dumps(tweet_data, indent=4, sort_keys=True) #, csv_file, indent=4, sort_keys=True)
+            tweets_obj = json.dumps(tweets, indent=4, sort_keys=True) #, csv_file, indent=4, sort_keys=True)
+            json_file.write(tweets_obj)
 
         processor_print(f'Finished processing {filename}')
 
@@ -188,21 +210,17 @@ class Processor:
             sentiments = [] 
             for date in dates:
                 try:
-                    filename = company_name + "/" + str(date) + ".csv"
-                    
-                    with open(filename, mode='r') as csv_file:
-                        csv_reader = csv.DictReader(csv_file)
-                        line_count = 0
-                        polarity = 0
-                        for row in csv_reader:
-                            if line_count == 0:
-                                line_count += 1
-                            p = self.sentiment_scores(row["tweet_text"])
+                    filename = company_name + "/" + str(date) + ".json"
+                    polarity = 0
+                    with open(filename, mode='r') as json_tweets:
+                        tweets = json.loads(json_tweets.read())
+                        all_tweets = tweets['all_tweets']
+                        for tweet in all_tweets:
+                            p = float(tweet['polarity'])
                             polarity += p
-                            line_count += 1
-                        if line_count > 1:
-                            polarity = polarity/(line_count - 1) #because there's a header also
-                            print(f'Final polarity - {polarity}')
+                        if len(all_tweets) > 0:
+                            polarity = polarity/len(all_tweets)
+
                     sentiment = {
                         '': index, 
                         'datadate': date,
@@ -210,9 +228,10 @@ class Processor:
                     }
                     sentiments.append(sentiment)
                     index += 1
-                except: 
-                    processor_print(f'Couldn\t processs {filename}')
-
+                except Exception as e:
+                    processor_print(f'Couldn\'t processs {filename}. {e}')
+                except IOError as e: 
+                    print("Couldn't open or write to file (%s)." % e)
             writer.writerows(sentiments)
 
     def sentiment_scores(self, sentence): 
