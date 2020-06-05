@@ -6,8 +6,8 @@ Boeing,BA,Prahlad,done,done,$BA,BA stock
 Caterpillar Inc,CAT,Prahlad,running,done,Caterpillar Stock,CAT stock
 JPMorgan Chase,JPM,Prahlad,done,done,$JPM,JPM
 Chevron Corporation,CVX,Prahlad,done,done,$CVX,CVX
-Coca-Cola Co,KO,Prahlad,done,running,$KO,KO stock
-Walt Disney Co,DIS,Prahlad,done,running,$DIS,DIS stock
+Coca-Cola Co,KO,Prahlad,done,done,$KO,KO stock
+Walt Disney Co,DIS,Prahlad,done,done,$DIS,DIS stock
 DuPont de Nemours Inc,DWDP,Prahlad,done,done,"$DWDP, $DD",DWDP
 Exxon Mobil Corporation,XOM,Prahlad,running,done,$XOM,XOM
 Home Depot Inc,HD,Prahlad,done,done,$HD,HD stock
