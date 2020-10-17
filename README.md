@@ -10,5 +10,7 @@ Prahlad's Windows:\
 "cd .. && cd.. && cd Projects && twitterscrap\Scripts\activate && cd TwitterScraper\twitter-scraping"
 
 ## Command for running Google News Scraper
+'''
 python main.py -t="V" -n="Visa Inc. (V)" -d="Visa" -w="/Users/karanwadhwani/Downloads/chromedriver" -e="PROD"
 python main.py -t="V" -n="Visa Inc. (V)" -d="Visa" -w="/Users/karanwadhwani/Downloads/chromedriver" -e="TEST"
+'''
