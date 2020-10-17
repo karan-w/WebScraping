@@ -5,32 +5,6 @@ import csv
 import urllib.request 
 import json
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer 
-
-
-
-def sentiment_scores(sentence): 
-  
-    sid_obj = SentimentIntensityAnalyzer() 
-   
-    sentiment_dict = sid_obj.polarity_scores(sentence) 
-      
-    print("Overall sentiment dictionary is : ", sentiment_dict) 
-    print("sentence was rated as ", sentiment_dict['neg']*100, "% Negative") 
-    print("sentence was rated as ", sentiment_dict['neu']*100, "% Neutral") 
-    print("sentence was rated as ", sentiment_dict['pos']*100, "% Positive") 
-  
-    print("Sentence Overall Rated As", end = " ") 
-   
-    if sentiment_dict['compound'] >= 0.05 : 
-        print("Positive") 
-  
-    elif sentiment_dict['compound'] <= - 0.05 : 
-        print("Negative") 
-  
-    else : 
-        print("Neutral") 
-    return sentiment_dict['compound']
-
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 import datetime
@@ -38,140 +12,75 @@ import time
 import argparse
 import os
 import matplotlib.pyplot as plt
-import pandas as pd
+import logging
+from scraper import Scraper
 
+ENVIRONMENT = "TEST" #PROD 
 
-data_1 = pd.read_csv(r'dow_jones_30_daily_price.csv')
-ticker = "V"
-select_stocks_list = [ticker]
+def signal_handler(sig, frame):
+    print('You pressed Ctrl+C!')
+    sys.exit(0)
 
-data_2 = data_1[data_1.tic.isin(select_stocks_list)][~data_1.datadate.isin(['20010912','20010913'])]
+def init_argparse():
+    parser = argparse.ArgumentParser(
+        usage="%(prog)s [OPTION] [FILE]...",
+        description="Twitter scraper."
+    )
+    parser.add_argument(
+        "-v", "--version", action="version",
+        version = f"{parser.prog} version 1.0.0"
+    )
+    parser.add_argument("-t", "--ticker", dest="TICKER", required=True,
+        help="Ticker of the company", metavar="string"
+    )
+    parser.add_argument("-n", "--ticker_name", dest="TICKER_NAME", required=True,
+        help="Search query for company on Google News", metavar="string"
+    )
+    parser.add_argument("-d", "--directory_name", dest="DIRECTORY_NAME", required=True,
+        help="Company name used for directory", metavar="string"
+    )
+    parser.add_argument("-w", "--chrome_webdriver_path", dest="CHROME_WEBDRIVER_PATH", required=True,
+        help="Company name used for directory", metavar="string"
+    )
+    parser.add_argument("-e", "--environment", dest="ENVIRONMENT", required=True,
+        help="Can only be 'TEST' or 'PROD'"
+    )
+    return parser
 
-data_3 = data_2[['iid','datadate','tic','prccd','ajexdi']]
+def setup_logging(logging):
+    #if folder not created, create folder 
+    now = datetime.datetime.now()
+    current_date_time = now.strftime("%d%m%Y_%H:%M:%S.log")
 
-data_3['adjcp'] = data_3['prccd'] / data_3['ajexdi']
+    LOGS_DIR_NAME = "logs"
+    LOG_FILE_NAME = current_date_time
+    LOG_FILE_LOCATION = os.path.join(LOGS_DIR_NAME, LOG_FILE_NAME)
 
-all_data = data_3[(data_3.datadate > 20000000) & (data_3.datadate < 20190000)]
+    if not os.path.exists(LOGS_DIR_NAME):
+        os.makedirs(LOGS_DIR_NAME)
 
-dates = all_data['datadate'].values.tolist()
+    logging.basicConfig(filename=LOG_FILE_LOCATION, level=logging.INFO)
 
-date_sentiment = dict()
-
-date_sentiment["datadate"] = dates
-date_sentiment["sentiment"] = [0 for date in dates]
-
-ticker_name = "VISA+INC.+(V)"
-query = "&tbm=nws&ei=2WlNXpSDE66W4-EPi_mtgA8&q=" + ticker_name + "&oq=" + ticker_name + "&gs_l=psy-ab.3..0l10.5670.5670.0.6280.1.1.0.0.0.0.161.161.0j1.1.0....0...1c.1.64.psy-ab..0.1.161....0._Azay032u5U"
-
-dir_name = 'VISA'
-
-for date in dates:
-
-    if date<20070101:
-        continue
+def main(args):
+    logging.info("Started")
+    logging.info(f"Arguments - {args}")
+    scraper = Scraper(args)
     
-    str_date = str(date)
-    str_next_date = str_date
-    url = "https://www.google.com/search?biw=1658&bih=948&tbs=cdr%3A1%2Ccd_min%3A" + str(str_date[4:6]) + "%2F" + str(str_date[6:]) + "%2F" + str(str_date[0:4]) + "%2Ccd_max%3A" + str(str_next_date[4:6])+ "%2F" + str(str_next_date[6:]) + "%2F" + str(str_next_date[0:4]) + query
-   
-    options = webdriver.ChromeOptions()
-    options.add_argument("--start-maximized")
-    #options.add_argument("--headless")
+if __name__ == '__main__':
+    parser = init_argparse()
+    args = parser.parse_args()
+    setup_logging(logging)
 
-    driver = webdriver.Chrome(options=options,executable_path=r"C:\Users\Mridul\Downloads\chromedriver.exe")
-    driver.get(url)
+    if args.ENVIRONMENT == "TEST":
+        main(args)
+    else:
+        while True:
+            try:
+                signal.signal(signal.SIGINT, signal_handler)
+                main(args)
+            except Exception as e:
+                print(e)
+                pass
+            else:
+                break
 
-    pause_time = 0
-
-    last_height = driver.execute_script("return document.body.scrollHeight")
-    new_height = last_height
-
-    start = datetime.datetime.now()
-
-    pages=driver.find_elements_by_xpath("//*[@id='foot']/span/div/table/tbody/tr/td")
-    counter=3
-    print("Num", len(pages))
-
-    if len(pages)==0:
-        pages = [0]
-
-    hrefs = []
-    for page in pages:
-        
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-        time.sleep(pause_time)
-        link_tags = driver.find_elements_by_tag_name('a')
-        for tag in link_tags:
-           if (len(tag.get_attribute('class'))==0 and (len(tag.text)!=0) and (tag.text != "Create alert") and (tag.text != "Reset search tools")):
-               hrefs.append(tag.text)
-
-        
-
-        if (new_height == last_height) and (counter < len(pages)): 
-            driver.find_element_by_xpath("//span[text()='Next']").click()
-            counter+=1
-
-        new_height = driver.execute_script("return document.body.scrollHeight")
-        last_height = new_height
-
-    driver.close()
-
-    end = datetime.datetime.now()
-    delta = end-start
-    print("[INFO] Total time taken to scroll till the end {}".format(delta))
-
-    if not os.path.exists(dir_name):
-        try:
-            os.mkdir(dir_name)
-        except OSError:
-            print ("[INFO] Creation of the directory {} failed".format(os.path.abspath(dir_name)))
-        else:
-            print ("[INFO] Successfully created the directory {} ".format(os.path.abspath(dir_name)))
-
-    polarity = 0
-    polarities = [] 
-
-    #Creating a json file
-    #filename = dir_name + "||" + str(date) + ".json"
-   
-    for sentence in hrefs:
-        p = sentiment_scores(sentence)
-        polarity += p
-        polarities.append(str(p))
-        print(sentence + ": " + str(p))
-
-    if len(hrefs)!=0:
-        polarity = polarity/len(hrefs)
-
-    sentiments = date_sentiment["sentiment"]
-
-    filename = os.path.join(dir_name, str(date) + ".json")
-    print(filename)
-    ticker_headline_dict = {
-        "headlines_count": len(hrefs),
-        "headlines": hrefs,
-        "polarity": polarity
-        }
-
-    with open(filename, 'w') as json_file:
-        headlines_obj = json.dumps(ticker_headline_dict, indent=4, sort_keys=True) #, csv_file, indent=4, sort_keys=True)
-        json_file.write(headlines_obj)
-          
-
-    ctr = 0
-    for idate in dates:
-        if idate==date:
-            print("date: ", idate)
-            sentiments[ctr] = polarity
-            print("polarity: ", polarity)
-            break
-        ctr = ctr + 1
-
-       
-
-    date_sentiment["sentiment"] = sentiments
-
-    dates_df = pd.DataFrame(date_sentiment)
-    SENTIMENT_FILE_PATH = os.path.join(dir_name, 'sentiment_' + ticker + '.csv')
-    dates_df.to_csv(SENTIMENT_FILE_PATH)
