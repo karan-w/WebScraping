@@ -17,8 +17,6 @@ from scraper import Scraper
 import signal
 import sys
 
-ENVIRONMENT = "TEST" #PROD 
-
 def signal_handler(sig, frame):
     print('You pressed Ctrl+C!')
     sys.exit(0)
