@@ -51,7 +51,7 @@ data_3 = data_2[['iid','datadate','tic','prccd','ajexdi']]
 
 data_3['adjcp'] = data_3['prccd'] / data_3['ajexdi']
 
-all_data = data_3[(data_3.datadate > 20180808) & (data_3.datadate < 20180810)]
+all_data = data_3[(data_3.datadate > 20000000) & (data_3.datadate < 20190000)]
 
 dates = all_data['datadate'].values.tolist()
 
