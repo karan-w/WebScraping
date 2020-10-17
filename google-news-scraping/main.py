@@ -50,7 +50,7 @@ def init_argparse():
 def setup_logging(logging):
     #if folder not created, create folder 
     now = datetime.datetime.now()
-    current_date_time = now.strftime("%d%m%Y_%H:%M:%S.log")
+    current_date_time = now.strftime("%d%m%Y_%H%M%S.log")
 
     LOGS_DIR_NAME = "logs"
     LOG_FILE_NAME = current_date_time
