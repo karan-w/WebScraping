@@ -12,5 +12,6 @@ Prahlad's Windows:\
 ## Command for running Google News Scraper
 '''
 python main.py -t="V" -n="Visa Inc. (V)" -d="Visa" -w="/Users/karanwadhwani/Downloads/chromedriver" -e="PROD"
+
 python main.py -t="V" -n="Visa Inc. (V)" -d="Visa" -w="/Users/karanwadhwani/Downloads/chromedriver" -e="TEST"
 '''
