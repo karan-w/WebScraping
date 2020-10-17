@@ -14,6 +14,8 @@ import os
 import matplotlib.pyplot as plt
 import logging
 from scraper import Scraper
+import signal
+import sys
 
 ENVIRONMENT = "TEST" #PROD 
 
