@@ -40,7 +40,7 @@ simplejson==3.17.0
 six==1.14.0
 soupsieve==2.0
 Twisted==20.3.0
-urllib3==1.25.9
+urllib3==1.26.5
 vaderSentiment==3.3.1
 w3lib==1.21.0
 webdriver-manager==2.3.0
